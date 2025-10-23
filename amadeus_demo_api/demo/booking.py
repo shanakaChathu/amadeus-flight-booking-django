@@ -17,7 +17,7 @@ class Booking:
         offer['last_name'] = self.flight['travelers'][0]['name']['lastName']
 
         for f in self.flight['flightOffers'][0]['itineraries']:
-            # Keys starting from 0 correspond to Outbound flights and the keys starting from 1 tp Return flights
+            # Keys starting from 0 correspond to Outbound flights and the keys starting from 1 tp Arrival flights
             if len(self.flight['flightOffers'][0]['itineraries'][index]['segments']) == 2:  # one stop flight
                 offer[str(index) + 'firstFlightDepartureAirport'] = self.flight['flightOffers'][0]['itineraries'][index]['segments'][0]['departure']['iataCode']
                 offer[str(index) + 'firstFlightAirlineLogo'] = get_airline_logo(self.flight['flightOffers'][0]['itineraries'][index]['segments'][0]['carrierCode'])
