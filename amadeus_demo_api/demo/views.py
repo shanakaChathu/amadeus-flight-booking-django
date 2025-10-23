@@ -9,7 +9,6 @@ from django.http import HttpResponse
 
 amadeus = Client()
 
-
 def demo(request):
     # Retrieve data from the UI form
     origin = request.POST.get("Origin")
@@ -79,8 +78,21 @@ def demo(request):
         )
     return render(request, "demo/home.html", {})
 
-
 def book_flight(request, flight):
+    """
+    Books a flight for a traveler based on the provided flight information.
+
+    This function creates a traveler profile and uses the Amadeus API to confirm the flight price
+    and perform the booking. It handles any errors that may occur during the process and displays
+    appropriate messages to the user.
+
+    Args:
+        request: The HTTP request object containing the flight information.
+        flight: A string representation of the flight offer to be booked.
+
+    Returns:
+        A rendered HTML response for the booking confirmation page or an error message.
+    """
     # Create a fake traveler profile for booking
     traveler = {
         "id": "1",
@@ -138,7 +150,6 @@ def book_flight(request, flight):
 
     return render(request, "demo/book_flight.html", {"response": passenger_name_record})
 
-
 def origin_airport_search(request):
     if request.is_ajax():
         try:
@@ -151,7 +162,6 @@ def origin_airport_search(request):
             )
     return HttpResponse(get_city_airport_list(data), "application/json")
 
-
 def destination_airport_search(request):
     if request.is_ajax():
         try:
@@ -163,7 +173,6 @@ def destination_airport_search(request):
                 request, messages.ERROR, error.response.result["errors"][0]["detail"]
             )
     return HttpResponse(get_city_airport_list(data), "application/json")
-
 
 def get_city_airport_list(data):
     result = []
