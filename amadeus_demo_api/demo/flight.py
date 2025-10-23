@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from .constants import TOTAL_DURATION_HOURS_PATTERN, TOTAL_DURATION_MINUTES_PATTERN, FIRST_FLIGHT_DURATION_HOURS_PATTERN, FIRST_FLIGHT_DURATION_MINUTES_PATTERN, SECOND_FLIGHT_DURATION_HOURS_PATTERN, SECOND_FLIGHT_DURATION_MINUTES_PATTERN
 
 
 class Flight:
@@ -57,32 +58,32 @@ def get_hour(date_time):
 
 
 def get_stoptime(total_duration, first_flight_duration, second_flight_duration):
-    if re.search('PT(.*)H', total_duration) is None:
+    if re.search(TOTAL_DURATION_HOURS_PATTERN, total_duration) is None:
         total_duration_hours = 0
     else:
-        total_duration_hours = int(re.search('PT(.*)H', total_duration).group(1))
-    if re.search('H(.*)M', total_duration) is None:
+        total_duration_hours = int(re.search(TOTAL_DURATION_HOURS_PATTERN, total_duration).group(1))
+    if re.search(TOTAL_DURATION_MINUTES_PATTERN, total_duration) is None:
         total_duration_minutes = 0
     else:
-        total_duration_minutes = int(re.search('H(.*)M', total_duration).group(1))
+        total_duration_minutes = int(re.search(TOTAL_DURATION_MINUTES_PATTERN, total_duration).group(1))
 
-    if re.search('PT(.*)H', first_flight_duration) is None:
+    if re.search(FIRST_FLIGHT_DURATION_HOURS_PATTERN, first_flight_duration) is None:
         first_flight_hours = 0
     else:
-        first_flight_hours = int(re.search('PT(.*)H', first_flight_duration).group(1))
-    if re.search('H(.*)M', first_flight_duration) is None:
+        first_flight_hours = int(re.search(FIRST_FLIGHT_DURATION_HOURS_PATTERN, first_flight_duration).group(1))
+    if re.search(FIRST_FLIGHT_DURATION_MINUTES_PATTERN, first_flight_duration) is None:
         first_flight_minutes = 0
     else:
-        first_flight_minutes = int(re.search('H(.*)M', first_flight_duration).group(1))
+        first_flight_minutes = int(re.search(FIRST_FLIGHT_DURATION_MINUTES_PATTERN, first_flight_duration).group(1))
 
-    if re.search('PT(.*)H', second_flight_duration) is None:
+    if re.search(SECOND_FLIGHT_DURATION_HOURS_PATTERN, second_flight_duration) is None:
         second_flight_hours = 0
     else:
-        second_flight_hours = int(re.search('PT(.*)H', second_flight_duration).group(1))
-    if re.search('H(.*)M', second_flight_duration) is None:
+        second_flight_hours = int(re.search(SECOND_FLIGHT_DURATION_HOURS_PATTERN, second_flight_duration).group(1))
+    if re.search(SECOND_FLIGHT_DURATION_MINUTES_PATTERN, second_flight_duration) is None:
         second_flight_minutes = 0
     else:
-        second_flight_minutes = int(re.search('H(.*)M', second_flight_duration).group(1))
+        second_flight_minutes = int(re.search(SECOND_FLIGHT_DURATION_MINUTES_PATTERN, second_flight_duration).group(1))
 
     connection_minutes = (total_duration_hours*60+total_duration_minutes) - (first_flight_hours*60 + first_flight_minutes + second_flight_hours*60 + second_flight_minutes)
     hours = connection_minutes // 60
