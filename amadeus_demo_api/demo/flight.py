@@ -49,7 +49,7 @@ class Flight:
 
 
 def get_airline_logo(carrier_code):
-    return "https://s1.apideeplink.com/images/airlines/" + carrier_code + ".png"
+    return "https://s1.apideeplink.com/images/airlines/" + carrier_code + ".jpg"
 
 
 def get_hour(date_time):
